@@ -4,7 +4,8 @@ var buildFolder = './dist/',
     rename = require('gulp-rename'),
     qunit = require('gulp-qunit'),
     uglify = require("gulp-uglify"),
-    watch = require("gulp-watch");
+    watch = require("gulp-watch"),
+    babel = require('gulp-babel');
 
 // Watch
 gulp.task('watch', function () {
@@ -14,6 +15,9 @@ gulp.task('watch', function () {
 // Minify JavaScript
 gulp.task('build', function () {
     gulp.src('./src/*.js')
+        .pipe(babel({
+            presets: ['env']
+        }))
         .pipe(uglify({ output: { comments: '/^!/'}}))
         .pipe(concat('rj.js'))
         .pipe(gulp.dest(buildFolder));

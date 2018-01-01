@@ -1,3 +1,5 @@
+'use strict';
+
 /*!
  * rj.js v1.0.0
  * (c) 2017 Benjamin Ulmer<ulmer.benjamin@gmail.com>
@@ -5,7 +7,7 @@
  */
 (function (w) {
 
-    var rj = {};
+    let rj = {};
 
     /**
      * Returns a function, that, as long as it continues to be invoked, will not
@@ -21,16 +23,16 @@
      *
      * @return {Function}
      */
-    rj.debounce = function(func, wait, immediate) {
-        var timeout;
+    rj.debounce = (func, wait, immediate) => {
+        let timeout;
 
-        return function() {
-            var context = this,
+        return () => {
+            let context = this,
                 args = arguments,
                 callNow,
                 later;
 
-            later = function() {
+            later = () => {
                 timeout = null;
                 if (!immediate) func.apply(context, args);
             };
@@ -55,13 +57,13 @@
      *
      * @return {Promise}
      */
-    rj.poll = function(func, timeout, interval) {
-        var endTime = Number(new Date()) + (timeout || 2000),
+    rj.poll = (func, timeout, interval) => {
+        let endTime = Number(new Date()) + (timeout || 2000),
             checkCondition;
 
         interval = interval || 100;
 
-        checkCondition = function(resolve, reject) {
+        checkCondition = (resolve, reject) => {
             var result = func();
 
             // If the condition is met, we're done!
@@ -92,10 +94,10 @@
      *
      * @return mixed
      */
-    rj.once = function(func, context) {
-        var result;
+    rj.once = (func, context) => {
+        let result;
 
-        return function() {
+        return () => {
             if(func) {
                 result = func.apply(context || this, arguments);
                 func = null;
@@ -114,10 +116,10 @@
      *
      * @return {string} i.e. 'http://www.example.com/something'
      */
-    rj.getAbsoluteUrl = (function() {
-        var a;
+    rj.getAbsoluteUrl = (() => {
+        let a;
 
-        return function(url) {
+        return (url) => {
             if(!a) a = document.createElement('a');
             a.href = url;
 
