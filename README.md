@@ -9,7 +9,7 @@ them and provide a useful set of unit tests.
 
 ### Usage
 
-To use the helper function download this repository and include the *dist/rj.js*
+To use these helper functions, download this repository and include the *dist/rj.js*
 distribution file in your project.
 
 ## Function reference
@@ -83,4 +83,5 @@ Source code for the functions
 * rj.poll
 * rj.once
 * rj.getAbsoluteUrl
+
 was taken from https://davidwalsh.name/essential-javascript-functions.
