@@ -1,0 +1,22 @@
+{
+  "name": "rj",
+  "authors": [
+    "Benjamin Ulmer <ulmer.benjamin@gmail.com>"
+  ],
+  "description": "Remluben JavaScript - A collection of useful JavaScript helper functions",
+  "main": "",
+  "license": "MIT",
+  "homepage": "https://github.com/remluben/rj",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    ".idea",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "devDependencies": {
+    "qunit": "^2.4.1",
+    "sinon-4.1.3": "http://sinonjs.org/releases/sinon-4.1.3.js"
+  }
+}
