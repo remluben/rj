@@ -2,6 +2,8 @@
 
 Remluben JavaScript - A collection of useful JavaScript helper functions
 
+<img src="http://cdn.remluben.at/assets/logo-358x398.png" width="32"> 
+
 ## Description
 
 Note, that I did not write the functions on my own. I simply tried to collect
