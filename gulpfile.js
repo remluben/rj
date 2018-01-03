@@ -16,10 +16,13 @@ gulp.task('watch', function () {
 gulp.task('build', function () {
     gulp.src('./src/*.js')
         .pipe(babel({
+            plugins: ['transform-remove-strict-mode'],
             presets: ['env']
         }))
-        .pipe(uglify({ output: { comments: '/^!/'}}))
         .pipe(concat('rj.js'))
+        .pipe(gulp.dest(buildFolder))
+        .pipe(uglify({ output: { comments: '/^!/'}}))
+        .pipe(concat('rj.min.js'))
         .pipe(gulp.dest(buildFolder));
 });
 

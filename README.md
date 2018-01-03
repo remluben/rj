@@ -9,8 +9,10 @@ them and provide a useful set of unit tests.
 
 ### Usage
 
-To use these helper functions, download this repository and include the *dist/rj.js*
-distribution file in your project.
+To use these helper functions, download this repository and include the 
+*dist/rj.min.js* distribution file in your project. In order to use single 
+functions, please copy and paste the required functions from the *dist/rj.js* 
+file to your project's JavaScript code.
 
 ## Function reference
 
