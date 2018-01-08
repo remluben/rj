@@ -179,3 +179,60 @@ QUnit.test("rj.getAbsoluteUrl", function(assert) {
     assert.equal(typeof(rj.getAbsoluteUrl), 'function',  "rj.getAbsoluteUrl is a function.");
     // TODO: tests
 });
+
+QUnit.test("rj.urlParams", function(assert) {
+    assert.equal(typeof(rj.urlParams), 'function',  "rj.urlParams is a function.");
+
+    assert.propEqual(
+        rj.urlParams('http://www.example.com/test?foo=bar&baz=foo#anchor'),
+        {
+            foo: 'bar',
+            baz: 'foo'
+        },
+        "rj.urlParam returns the URL params from a full URL with params and hash."
+    );
+
+    assert.propEqual(
+        rj.urlParams('http://www.example.com/test?foo=&baz=#anchor'),
+        {
+            foo: '',
+            baz: ''
+        },
+        "rj.urlParam returns the URL params from a full URL with params and hash, even if the values are empty (no value after the '=' sign)."
+    );
+
+    assert.propEqual(
+        rj.urlParams('http://www.example.com/test?foo[]=bar&foo[]=boo&baz=foo#anchor'),
+        {
+            foo: ['bar','boo'],
+            baz: 'foo'
+        },
+        "rj.urlParam handles array URL params without key values correctly."
+    );
+
+    assert.propEqual(
+        rj.urlParams('http://www.example.com/test?foo[1]=second&foo[0]=first&baz=foo#anchor'),
+        {
+            foo: ['first','second'],
+            baz: 'foo'
+        },
+        "rj.urlParam handles array URL params with numeric keys correctly and adds them to the results in the appropriate order."
+    );
+
+    assert.propEqual(
+        rj.urlParams('http://www.example.com/test?foo=a%20bar&bar=a%20foo#anchor'),
+        {
+            foo: 'a bar',
+            bar: 'a foo'
+        },
+        "rj.urlParam handles urlencoded URL param values correctly and returns the properly decoded values."
+    );
+
+    assert.propEqual(
+        rj.urlParams('http://www.example.com/test?foo[one]=1&foo[two]=2#anchor'),
+        {
+            foo: ['1', '2']
+        },
+        "rj.urlParam ignores non-numeric array URL param keys and pushes the values in parameter order to the resulting object."
+    );
+});

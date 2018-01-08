@@ -127,6 +127,96 @@
         };
     })();
 
+    /**
+     * Takes an URL string or uses the window.location and returns an object
+     * containing all URL parameters
+     *
+     * @see https://www.sitepoint.com/get-url-parameters-with-javascript/
+     *
+     * @param  {string} i.e. 'http://www.example.com/test?foo=bar&baz=foo#anchor'
+     *
+     * @return {{}} i.e. {"foo": "bar", "baz":"foo"}
+     */
+    rj.urlParams = (url) => {
+        // get query string from url (optional) or window
+        let queryString = url ? url.split('?')[1] : w.location.search.slice(1),
+            obj = {};
+
+        // if query string exists
+        if (queryString) {
+
+            // stuff after # is not part of query string, so get rid of it
+            queryString = queryString.split('#')[0];
+
+            // split our query string into its component parts
+            let arr = queryString.split('&'),
+                i = 0;
+
+            for (i = 0; i < arr.length; i++) {
+                    // separate the keys and the values
+                let a = arr[i].split('='),
+                    paramNum = undefined,
+                    paramName = undefined,
+                    // set parameter value (use 'true' if empty)
+                    paramValue = typeof(a[1])==='undefined' ? true : decodeURIComponent(a[1]),
+                    paramIsArray = false;
+
+                // in case params look like: list[]=thing1&list[]=thing2
+                // or list[1]=thing2&list[0]=thing1
+                // in case params look like: list[one]=thing1&list[two]=thing2
+                // the string keys are ignored, the values will be pushed to
+                // the result values without an index
+                paramName = a[0].replace(/\[\d*\]/, function(v) {
+                    paramNum = !isNaN(parseInt(v.slice(1, -1), 10)) ? parseInt(v.slice(1, -1), 10)  : undefined;
+                    paramIsArray = true;
+                    return '';
+                }).replace(/\[[^\]]*\]/, function(v) {
+                    paramNum = undefined;
+                    paramIsArray = true;
+                    return '';
+                });
+
+                // the parameter has not been set in our results object yet,
+                // so we check if the current parameter is an array type parameter
+                // and initialize the parameter value as array or simple value
+                // otherwise
+                if (obj[paramName] === undefined) {
+                    if(paramIsArray) {
+                        obj[paramName] = [];
+
+                        if(paramNum !== undefined) {
+                            obj[paramName][paramNum] = paramValue;
+                        }
+                        else {
+                            obj[paramName].push(paramValue);
+                        }
+                    }
+                    else {
+                        obj[paramName] = paramValue;
+                    }
+                }
+                // the parameter was set before in our results, so we add an
+                // additional value for the parameter. This requires converting
+                // the value to an array (if it is not an array) and add the
+                // value
+                else {
+                    if(typeof obj[paramName] === 'string') {
+                        obj[paramName] = [obj[paramName]];
+                    }
+
+                    if(paramNum !== undefined) {
+                        obj[paramName][paramNum] = paramValue;
+                    }
+                    else {
+                        obj[paramName].push(paramValue);
+                    }
+                }
+            }
+        }
+
+        return obj;
+    };
+
     // export
     w.rj = rj;
 

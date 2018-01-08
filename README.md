@@ -78,6 +78,27 @@ you.
 
 Please view the original function and docs at https://davidwalsh.name/get-absolute-url
 
+### rj.urlParams(url)
+
+Use the `rj.urlParams` function whenever you need to read the URL parameters from either an URL from a variable or the current applications URL.
+
+Note, that this function deals with simple parameters as well as with array URL parameters.
+
+```javascript
+// for a given example URL 
+// http://www.example.com/directory?foo[]=one&foo[]=two&show_target_section=1&bar[1]=second&bar[0]=first
+var bool = false;
+
+bool = rj.urlParams().show_target_section === '1'; // true
+bool = rj.urlParams().foo[0] === 'one'; // true
+bool = rj.urlParams().foo[1] === 'two'; // true
+bool = rj.urlParams().bar[0] === 'second'; // false
+bool = rj.urlParams().foo[0] === 'first'; // true
+bool = rj.urlParams().foo[1] === 'second'; // true
+```
+
+Please note, that this function is an improved version of the original function at https://www.sitepoint.com/get-url-parameters-with-javascript/
+
 ## Credits
 
 Source code for the functions
@@ -87,3 +108,5 @@ Source code for the functions
 * rj.getAbsoluteUrl
 
 was taken from https://davidwalsh.name/essential-javascript-functions.
+
+Source code for rj.urlParams was taken from https://www.sitepoint.com/get-url-parameters-with-javascript/
