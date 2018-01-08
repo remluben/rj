@@ -108,6 +108,20 @@ bool = rj.urlParams().foo[1] === 'second'; // true
 
 Please note, that this function is an improved version of the original function at https://www.sitepoint.com/get-url-parameters-with-javascript/
 
+### rj.numberFormat(number, decimals = 2, decimalPoint = '.', thousandSeparator = ',')
+
+Formats a given numer with the specified number of decimals, the specified decimal point and the specified thousand separator.
+
+```javascript
+rj.numberFormat(1200.99); // 1,200.99
+rj.numberFormat(1200.905, 2, ',', '.'); // 1.200,91
+rj.numberFormat(1200.904, 2); // 1,200.90
+rj.numberFormat(1200.99, 0, '.', ' '); // 1 201
+rj.numberFormat(undefined, 2, '.', ' '); // 0.00
+```
+
+Please view the original function and docs at https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript#149099
+
 ## Credits
 
 Source code for the functions
@@ -119,3 +133,5 @@ Source code for the functions
 was taken from https://davidwalsh.name/essential-javascript-functions.
 
 Source code for rj.urlParams was taken from https://www.sitepoint.com/get-url-parameters-with-javascript/
+
+Source code for rj.numberFormat was taken from https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript#149099

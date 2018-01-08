@@ -263,4 +263,7 @@ QUnit.test("rj.numberFormat", function(assert) {
 
     assert.equal(rj.numberFormat(0.904, 2, ',', ' '), '0,90',
         "rj.numberFormat rounds numbers correctly to the given precision.");
+
+    assert.equal(rj.numberFormat(1200.99, 0, '.', ' '), '1 201',
+        "rj.numberFormat rounds numbers correctly to the given precision.");
 });
