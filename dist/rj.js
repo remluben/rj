@@ -217,6 +217,35 @@
         return obj;
     };
 
+    /**
+     * Return an appropriately formatted number
+     *
+     * @see https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript#149099
+     *
+     * @param {float} number
+     * @param {integer} decimals
+     *        the number of decimals to use
+     * @param {string} decimalPoint
+     *        the decimal point sign to use
+     * @param {float} number
+     *
+     * @return {string} the formatted number
+     */
+    rj.numberFormat = function (number) {
+        var decimals = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+        var decimalPoint = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '.';
+        var thousandSeparator = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : ',';
+
+        // let decimals = isNaN(decimals = Math.abs(decimals)) ? 2 : decimals,
+        //     decimalPoint = decimalPoint == undefined ? "." : decimalPoint,
+        //     thousandSeparator = thousandSeparator == undefined ? "," : thousandSeparator,
+        var s = number < 0 ? "-" : "",
+            i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decimals))),
+            j = i.length > 3 ? i.length % 3 : 0;
+
+        return s + (j ? i.substr(0, j) + thousandSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousandSeparator) + (decimals ? decimalPoint + Math.abs(number - i).toFixed(decimals).slice(2) : "");
+    };
+
     // export
     w.rj = rj;
 })(window);

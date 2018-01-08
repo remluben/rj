@@ -236,3 +236,31 @@ QUnit.test("rj.urlParams", function(assert) {
         "rj.urlParam ignores non-numeric array URL param keys and pushes the values in parameter order to the resulting object."
     );
 });
+
+QUnit.test("rj.numberFormat", function(assert) {
+    assert.equal(typeof(rj.numberFormat), 'function',  "rj.numberFormat is a function.");
+
+    assert.equal(rj.numberFormat('invalid', 2, ',', ' '), '0,00',
+        "rj.numberFormat returns 0,00 for an invalid value 'invalid' provided.");
+
+    assert.equal(rj.numberFormat('', 2, ',', ' '), '0,00',
+        "rj.numberFormat returns 0,00 for an empty value provided as number.");
+
+    assert.equal(rj.numberFormat(undefined, 2, ',', ' '), '0,00',
+        "rj.numberFormat returns 0,00 for 'undefined' provided as number.");
+
+    assert.equal(rj.numberFormat(null, 2, ',', ' '), '0,00',
+        "rj.numberFormat returns 0,00 for 'null' provided as number.");
+
+    assert.equal(rj.numberFormat(NaN, 2, ',', ' '), '0,00',
+        "rj.numberFormat returns 0,00 for 'NaN' provided as number.");
+
+    assert.equal(rj.numberFormat(1200.99, 2, ',', ' '), '1 200,99',
+        "rj.numberFormat formats a valid float correctly.");
+
+    assert.equal(rj.numberFormat(0.905, 2, ',', ' '), '0,91',
+        "rj.numberFormat rounds numbers correctly to the given precision.");
+
+    assert.equal(rj.numberFormat(0.904, 2, ',', ' '), '0,90',
+        "rj.numberFormat rounds numbers correctly to the given precision.");
+});
