@@ -71,12 +71,19 @@ canOnlyFireOnce(); // nada
 
 Please view the original function and docs at https://davidwalsh.name/javascript-once
 
-### rj.getAbsoluteUrl
+### rj.getAbsoluteUrl(url)
 
 Getting an absolute URL from a variable string isn't as easy as you think. 
 There's the URL constructor but it can act up if you don't provide the required 
 arguments (which sometimes you can't). `rj.getAbsoluteUrl` does the trick for 
 you.
+
+```javascript
+// on a website http://www.example.com...
+rj.getAbsoluteUrl('/something'); // http://www.example.com/something
+rj.getAbsoluteUrl('/something/different'); // http://www.example.com/something/different
+rj.getAbsoluteUrl('subdomain.example.com/something'); // http://subdomain.example.com/something
+```
 
 Please view the original function and docs at https://davidwalsh.name/get-absolute-url
 
