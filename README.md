@@ -43,7 +43,7 @@ check for a condition to be met every `interval` milliseconds.
 
 ```javascript
 // ensure element is visible
-poll(function() {
+rj.poll(function() {
     return document.getElementById('lightbox').offsetWidth > 0;
 }, 2000, 150).then(function() {
     // Polling done, now do something else!
@@ -62,7 +62,7 @@ you with a simple interface to do so and makes it easy to avoid duplicate
 initialization.
 
 ```javascript
-var canOnlyFireOnce = once(function() {
+var canOnlyFireOnce = rj.once(function() {
     // Do some initialization stuff here
 });
 canOnlyFireOnce(); // executes the initialization stuff
