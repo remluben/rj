@@ -267,3 +267,55 @@ QUnit.test("rj.numberFormat", function(assert) {
     assert.equal(rj.numberFormat(1200.99, 0, '.', ' '), '1 201',
         "rj.numberFormat rounds numbers correctly to the given precision.");
 });
+
+QUnit.test("rj.events", function(assert) {
+    assert.equal(typeof(rj.events), 'object',  "rj.events is successfully initialized.");
+
+    assert.equal(typeof(rj.events.publish), 'function',  "rj.events.publish is a function.");
+
+    assert.equal(typeof(rj.events.subscribe), 'function',  "rj.events.subscribe is a function.");
+
+    (function () {
+        var func = sinon.spy();
+
+        rj.events.subscribe('ExampleEvent', func)
+        rj.events.publish('ExampleEvent');
+
+        assert.ok(func.calledOnce, "A function subscribed for the event 'ExampleEvent' is called once if the event is published once.");
+    })();
+
+    (function () {
+        var func = sinon.spy(function () {}),
+            subscription = rj.events.subscribe('ExampleEvent', func);
+
+        subscription.remove();
+        rj.events.publish('ExampleEvent');
+
+        assert.ok(func.notCalled,  "The function subscribed for the event 'ExampleEvent' is not called if it's subscription was remove before the event is fired.");
+    })();
+
+    (function () {
+        var funcOne = sinon.spy(),
+            funcTwo = sinon.spy();
+
+        rj.events.subscribe('ExampleEvent', funcOne)
+        rj.events.subscribe('ExampleEvent', funcTwo)
+
+        rj.events.publish('ExampleEvent');
+        rj.events.publish('ExampleEvent');
+
+        assert.equal(funcOne.callCount, funcTwo.callCount,  "Two functions, that subscribed for the same event 'ExampleEvent', are both called twice if the event is published twice.");
+    })();
+
+    (function () {
+        var func = sinon.spy(),
+            params = {"foo":"bar"};
+
+        rj.events.subscribe('ExampleEvent', func)
+        rj.events.publish('ExampleEvent', params);
+
+        // func.args[0] // array of parameters provided on first call
+        // func.args[0][0] // first parameter of parameters provided on first call
+        assert.equal(func.args[0][0], params, "The function subscribed for the event 'ExampleEvent' receives the info data published with the event as first function parameter.");
+    })();
+});

@@ -246,6 +246,50 @@
         return s + (j ? i.substr(0, j) + thousandSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousandSeparator) + (decimals ? decimalPoint + Math.abs(number - i).toFixed(decimals).slice(2) : "");
     };
 
+    /**
+     * An easy to use pub/sub interface for dealing with application wide events.
+     *
+     * If you've not used pub/sub before, the gist is that you publish to a
+     * topic and anyone can subscribe, much like the way a radio works: a radio
+     * station broadcasts (publishes) and anyone can listen (subscribes). This
+     * is excellent for highly modular web applications; it's a license to
+     * globally communicate without attaching to any specific object.
+     *
+     * @see https://davidwalsh.name/pubsub-javascript
+     *
+     * @return  {Object} the events pub/sub object
+     */
+    rj.events = function () {
+        var topics = {},
+            hOP = topics.hasOwnProperty;
+
+        return {
+            subscribe: function subscribe(topic, listener) {
+                // Create the topic's object if not yet created
+                if (!hOP.call(topics, topic)) topics[topic] = [];
+
+                // Add the listener to queue
+                var index = topics[topic].push(listener) - 1;
+
+                // Provide handle back for removal of topic
+                return {
+                    remove: function remove() {
+                        delete topics[topic][index];
+                    }
+                };
+            },
+            publish: function publish(topic, info) {
+                // If the topic doesn't exist, or there's no listeners in queue, just leave
+                if (!hOP.call(topics, topic)) return;
+
+                // Cycle through topics queue, fire!
+                topics[topic].forEach(function (item) {
+                    item(info !== undefined ? info : {});
+                });
+            }
+        };
+    }();
+
     // export
     w.rj = rj;
 })(window);

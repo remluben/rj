@@ -35,24 +35,62 @@ window.addEventListener('resize', myEfficientFn);
 
 Please view the original function and docs at https://davidwalsh.name/javascript-debounce-function
 
-### rj.poll(func, timeout, interval)
+### rj.events
 
-If you want to allow your desired code (or function) to be executed after a 
-certain condition was met the `rj.poll` function is your choice. It allows you to
-check for a condition to be met every `interval` milliseconds.
+An easy to use pub/sub interface for dealing with application wide events.
+
+If you've not used pub/sub before, the gist is that you publish to a topic and anyone can subscribe, much like the way a radio works: a radio station broadcasts (publishes) and anyone can listen (subscribes). This is excellent for highly modular web applications; it's a license to globally communicate without attaching to any specific object.
+
+Publishing to a topic:
 
 ```javascript
-// ensure element is visible
-rj.poll(function() {
-    return document.getElementById('lightbox').offsetWidth > 0;
-}, 2000, 150).then(function() {
-    // Polling done, now do something else!
-}).catch(function() {
-    // Polling timed out, handle the error!
+rj.events.publish('/page/load', {
+    url: '/some/url/path' // any argument
 });
 ```
 
-Please view the original function and docs at https://davidwalsh.name/javascript-polling
+...and subscribing to said topic in order to be notified of events:
+
+```javascript
+var subscription = rj.events.subscribe('/page/load', function(obj) {
+    // Do something now that the event has occurred
+});
+
+// ...sometime later where I no longer want subscription...
+subscription.remove();
+```
+
+Please view the original function and docs at https://davidwalsh.name/pubsub-javascript
+
+### rj.getAbsoluteUrl(url)
+
+Getting an absolute URL from a variable string isn't as easy as you think. 
+There's the URL constructor but it can act up if you don't provide the required 
+arguments (which sometimes you can't). `rj.getAbsoluteUrl` does the trick for 
+you.
+
+```javascript
+// on a website http://www.example.com...
+rj.getAbsoluteUrl('/something'); // http://www.example.com/something
+rj.getAbsoluteUrl('/something/different'); // http://www.example.com/something/different
+rj.getAbsoluteUrl('subdomain.example.com/something'); // http://subdomain.example.com/something
+```
+
+Please view the original function and docs at https://davidwalsh.name/get-absolute-url
+
+### rj.numberFormat(number, decimals = 2, decimalPoint = '.', thousandSeparator = ',')
+
+Formats a given numer with the specified number of decimals, the specified decimal point and the specified thousand separator.
+
+```javascript
+rj.numberFormat(1200.99); // 1,200.99
+rj.numberFormat(1200.905, 2, ',', '.'); // 1.200,91
+rj.numberFormat(1200.904, 2); // 1,200.90
+rj.numberFormat(1200.99, 0, '.', ' '); // 1 201
+rj.numberFormat(undefined, 2, '.', ' '); // 0.00
+```
+
+Please view the original function and docs at https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript#149099
 
 ### rj.once(func, context)
 
@@ -71,21 +109,24 @@ canOnlyFireOnce(); // nada
 
 Please view the original function and docs at https://davidwalsh.name/javascript-once
 
-### rj.getAbsoluteUrl(url)
+### rj.poll(func, timeout, interval)
 
-Getting an absolute URL from a variable string isn't as easy as you think. 
-There's the URL constructor but it can act up if you don't provide the required 
-arguments (which sometimes you can't). `rj.getAbsoluteUrl` does the trick for 
-you.
+If you want to allow your desired code (or function) to be executed after a 
+certain condition was met the `rj.poll` function is your choice. It allows you to
+check for a condition to be met every `interval` milliseconds.
 
 ```javascript
-// on a website http://www.example.com...
-rj.getAbsoluteUrl('/something'); // http://www.example.com/something
-rj.getAbsoluteUrl('/something/different'); // http://www.example.com/something/different
-rj.getAbsoluteUrl('subdomain.example.com/something'); // http://subdomain.example.com/something
+// ensure element is visible
+rj.poll(function() {
+    return document.getElementById('lightbox').offsetWidth > 0;
+}, 2000, 150).then(function() {
+    // Polling done, now do something else!
+}).catch(function() {
+    // Polling timed out, handle the error!
+});
 ```
 
-Please view the original function and docs at https://davidwalsh.name/get-absolute-url
+Please view the original function and docs at https://davidwalsh.name/javascript-polling
 
 ### rj.urlParams(url)
 
@@ -108,27 +149,14 @@ bool = rj.urlParams().foo[1] === 'second'; // true
 
 Please note, that this function is an improved version of the original function at https://www.sitepoint.com/get-url-parameters-with-javascript/
 
-### rj.numberFormat(number, decimals = 2, decimalPoint = '.', thousandSeparator = ',')
-
-Formats a given numer with the specified number of decimals, the specified decimal point and the specified thousand separator.
-
-```javascript
-rj.numberFormat(1200.99); // 1,200.99
-rj.numberFormat(1200.905, 2, ',', '.'); // 1.200,91
-rj.numberFormat(1200.904, 2); // 1,200.90
-rj.numberFormat(1200.99, 0, '.', ' '); // 1 201
-rj.numberFormat(undefined, 2, '.', ' '); // 0.00
-```
-
-Please view the original function and docs at https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript#149099
-
 ## Credits
 
 Source code for the functions
 * rj.debounce
-* rj.poll
-* rj.once
+* rj.events
 * rj.getAbsoluteUrl
+* rj.once
+* rj.poll
 
 was taken from https://davidwalsh.name/essential-javascript-functions.
 
