@@ -1,7 +1,7 @@
 'use strict';
 
 /*!
- * rj.js v1.0.0
+ * rj.js v1.1.0
  * (c) 2017 Benjamin Ulmer<ulmer.benjamin@gmail.com>
  * Released under the MIT License.
  */
