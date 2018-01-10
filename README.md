@@ -149,6 +149,13 @@ bool = rj.urlParams().foo[1] === 'second'; // true
 
 Please note, that this function is an improved version of the original function at https://www.sitepoint.com/get-url-parameters-with-javascript/
 
+## Roadmap
+
+* Add browser support information to docs  
+* Find and document polyfills for ECMAScript6 features or transpile to ECMAScript5 compatibility
+* Improve development setup
+* Add new functions
+
 ## Credits
 
 Source code for the functions

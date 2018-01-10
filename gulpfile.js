@@ -27,7 +27,7 @@ gulp.task('build', function () {
 });
 
 // Test JavaScript
-gulp.task('test', function () {
-    return gulp.src('./test/tests.js')
+gulp.task('test', ['build'], function () {
+    return gulp.src('./test/index.html')
         .pipe(qunit());
 });

@@ -22,13 +22,12 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-qunit": "^1.5.2",
+    "gulp-qunit": "^2.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^3.0.0",
     "gulp-watch": "^4.3.11",
     "phantomjs-prebuilt": "^2.1.16",
     "qunit": "^2.5.0",
-    "qunitjs": "^2.4.1",
     "sinon": "^4.1.4"
   }
 }
