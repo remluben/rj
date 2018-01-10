@@ -1,6 +1,6 @@
 {
   "name": "rj",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Remluben JavaScript - A collection of useful JavaScript helper functions",
   "repository": {
     "type": "git",
@@ -27,6 +27,8 @@
     "gulp-uglify": "^3.0.0",
     "gulp-watch": "^4.3.11",
     "phantomjs-prebuilt": "^2.1.16",
-    "qunitjs": "^2.4.1"
+    "qunit": "^2.5.0",
+    "qunitjs": "^2.4.1",
+    "sinon": "^4.1.4"
   }
 }
