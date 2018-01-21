@@ -128,6 +128,52 @@ rj.poll(function() {
 
 Please view the original function and docs at https://davidwalsh.name/javascript-polling
 
+### rj.toCamel(str)
+
+Transforms the given string to its camelcase representation.
+
+```javascript
+rj.toCamel('property-one'); // "propertyOne"
+rj.toCamel('property_two'); // "propertyTwo"
+rj.toCamel('_property_three'); // "PropertyThree"
+```
+
+Please view the original function and docs at https://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
+
+### rj.toUnderscore(str)
+
+Transforms the given camelcase string to its dash representation.
+
+```javascript
+rj.toUnderscore('propertyOne'); // "property-one"
+rj.toUnderscore('propertyTwo'); // "property-two"
+rj.toUnderscore('PropertyThree'); // "-property-three"
+```
+
+Please view the original function and docs at https://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
+
+### rj.toUnderscore(str)
+
+Transforms the given camelcase string to its underscore representation.
+
+```javascript
+rj.toUnderscore('propertyOne'); // "property_one"
+rj.toUnderscore('propertyTwo'); // "property-two"
+rj.toUnderscore('PropertyThree'); // "_property_three"
+```
+
+Please view the original function and docs at https://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
+
+### rj.trim(str)
+
+Strips whitespaces from the beginning and end of the given string.
+
+```javascript
+rj.trim(' Frank Example '); // " Frank Example " > "Frank Example"
+```
+
+Please view the original function and docs at https://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
+
 ### rj.urlParams(url)
 
 Use the `rj.urlParams` function whenever you need to read the URL parameters from either an URL from a variable or the current applications URL.
@@ -170,3 +216,11 @@ was taken from https://davidwalsh.name/essential-javascript-functions.
 Source code for rj.urlParams was taken from https://www.sitepoint.com/get-url-parameters-with-javascript/
 
 Source code for rj.numberFormat was taken from https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript#149099
+
+Source code for the functions
+* rj.toCamel
+* rj.toDash
+* rj.toUnderscore
+* rj.trim
+
+was taken from https://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/.

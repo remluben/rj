@@ -319,3 +319,46 @@ QUnit.test("rj.events", function(assert) {
         assert.equal(func.args[0][0], params, "The function subscribed for the event 'ExampleEvent' receives the info data published with the event as first function parameter.");
     })();
 });
+
+QUnit.test("rj.trim", function(assert) {
+    assert.equal(typeof(rj.trim), 'function',  "rj.trim is a function.");
+
+    assert.equal(rj.trim(' foo bar '), 'foo bar',
+        "rj.trim removes preceeding and trailing whitespaces.");
+
+    assert.equal(rj.trim('	foo bar	'), 'foo bar',
+        "rj.trim removes preceeding and trailing tabs.");
+
+    assert.equal(rj.trim("\nfoo bar\n\r"), 'foo bar',
+        "rj.trim removes preceeding and trailing newlines.");
+});
+
+QUnit.test("rj.toCamel", function(assert) {
+    assert.equal(typeof(rj.toCamel), 'function',  "rj.toCamel is a function.");
+
+    assert.equal(rj.toCamel('_foo_bar'), 'FooBar',
+        "rj.toCamel transforms all underscores followed by a lowercase character to it's uppercase version.");
+
+    assert.equal(rj.toCamel('-foo-bar'), 'FooBar',
+        "rj.toCamel transforms all dashes followed by a lowercase character to it's uppercase version.");
+
+    assert.equal(rj.toCamel('foo_bar_'), 'fooBar_',
+        "rj.toCamel preserves an underscore at last position in string");
+
+    assert.equal(rj.toCamel('foo_bar'), 'fooBar',
+        "rj.toCamel preserves a lowercase character at first position in string");
+});
+
+QUnit.test("rj.toDash", function(assert) {
+    assert.equal(typeof(rj.toDash), 'function',  "rj.toDash is a function.");
+
+    assert.equal(rj.toDash('FooBar'), '-foo-bar',
+        "rj.toDash replaces all uppercase characters by a dash followed by the character's lowercase version.");
+});
+
+QUnit.test("rj.toUnderscore", function(assert) {
+    assert.equal(typeof(rj.toUnderscore), 'function',  "rj.toUnderscore is a function.");
+
+    assert.equal(rj.toUnderscore('FooBar'), '_foo_bar',
+        "rj.toUnderscore replaces all uppercase characters by a dash followed by the character's lowercase version.");
+});

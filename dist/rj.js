@@ -290,6 +290,59 @@
         };
     }();
 
+    /**
+     * Trims all kind of whitespace characters from the given string and returns
+     * the cleaned version.
+     *
+     * @param {string} str
+     *
+     * @returns {string}
+     */
+    rj.trim = function (str) {
+        return str.replace(/^\s+|\s+$/g, "");
+    };
+
+    /**
+     * Transforms a string containing dashes and underscores to its camelcase
+     * version.
+     *
+     * @param {string} str
+     *
+     * @returns {string}
+     */
+    rj.toCamel = function (str) {
+        return str.replace(/([-_][a-z])/g, function (match) {
+            return match.toUpperCase().replace(/[-_]/, '');
+        });
+    };
+
+    /**
+     * Transforms a camelcase string to a lowercase string separated by dashes.
+     *
+     * @param {string} str
+     *
+     * @returns {string}
+     */
+    rj.toDash = function (str) {
+        return str.replace(/([A-Z])/g, function (match) {
+            return "-" + match.toLowerCase();
+        });
+    };
+
+    /**
+     * Transforms a camelcase string to a lowercase string separated by
+     * underscores.
+     *
+     * @param {string} str
+     *
+     * @returns {string}
+     */
+    rj.toUnderscore = function (str) {
+        return str.replace(/([A-Z])/g, function (match) {
+            return "_" + match.toLowerCase();
+        });
+    };
+
     // export
     w.rj = rj;
 })(window);

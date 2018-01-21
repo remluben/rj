@@ -287,6 +287,66 @@
         };
     })();
 
+    /**
+     * Trims all kind of whitespace characters from the given string and returns
+     * the cleaned version.
+     *
+     * @param {string} str
+     *
+     * @returns {string}
+     */
+    rj.trim = (str) => {
+        return str.replace(/^\s+|\s+$/g, "");
+    };
+
+    /**
+     * Transforms a string containing dashes and underscores to its camelcase
+     * version.
+     *
+     * @param {string} str
+     *
+     * @returns {string}
+     */
+    rj.toCamel = (str) => {
+        return str.replace(/([-_][a-z])/g,
+            (match) => {
+                return match.toUpperCase().replace(/[-_]/,'');
+            }
+        );
+    };
+
+    /**
+     * Transforms a camelcase string to a lowercase string separated by dashes.
+     *
+     * @param {string} str
+     *
+     * @returns {string}
+     */
+    rj.toDash = (str) => {
+        return str.replace(/([A-Z])/g,
+            (match) => {
+                return "-" + match.toLowerCase();
+            }
+        );
+    };
+
+
+    /**
+     * Transforms a camelcase string to a lowercase string separated by
+     * underscores.
+     *
+     * @param {string} str
+     *
+     * @returns {string}
+     */
+    rj.toUnderscore = (str) => {
+        return str.replace(/([A-Z])/g,
+            (match) => {
+                return "_" + match.toLowerCase();
+            }
+        );
+    };
+
     // export
     w.rj = rj;
 
